@@ -1,7 +1,7 @@
 name: a0002_easy_sqlite_crud_op
 description: "Introducing a0002_easy_sqlite_crud_op, a handy tool for working with SQLite databases. This package makes it super easy to create, read, update, and delete data in your SQLite databases, simplifying database management for users of all levels."
-version: 0.0.1
-homepage:
+version: 0.0.2
+homepage: https://github.com/MrManavRamani-Flutter/a0002_easy_sqlite_crud_op
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
