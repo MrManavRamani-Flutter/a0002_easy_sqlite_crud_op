@@ -1,7 +1,7 @@
 import 'package:a0002_easy_sqlite_crud_op/a0002_easy_sqlite_crud_op.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:path/path.dart'; // Ensure this is imported to use the join function
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -14,7 +14,7 @@ class DatabaseHelper {
     required BuildContext context,
     required String dbName,
     required String tableName,
-    required List<String> columns,
+    required Map<String, String> columns,
   }) async {
     final isCreated = await isDatabaseCreated(dbName: dbName);
     if (isCreated) {

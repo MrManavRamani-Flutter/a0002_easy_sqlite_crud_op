@@ -4,9 +4,13 @@ class TableCreator {
   static Future<void> createTable({
     required Database db,
     required String tableName,
-    required List<String> columns,
+    required Map<String, String> columns,
   }) async {
-    final columnDefinitions = columns.join(', ');
+    // Ensure 'id' column is always included
+    columns['id'] = 'INTEGER PRIMARY KEY';
+
+    final columnDefinitions =
+        columns.entries.map((e) => '${e.key} ${e.value}').join(', ');
     await db.execute('CREATE TABLE $tableName ($columnDefinitions)');
   }
 }
