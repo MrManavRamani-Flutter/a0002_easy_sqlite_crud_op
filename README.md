@@ -67,6 +67,61 @@ class HomeScreen extends StatelessWidget {
 
 ```
 
-#### HomeScreen is a StatelessWidget that serves as the main screen.
-#### It uses a Scaffold to provide a basic structure with an AppBar and a centered button.
-#### When the button is pressed, it calls DatabaseHelper.createDatabaseAndTable to create the database and table.
+HomeScreen is a StatelessWidget that serves as the main screen.
+It uses a Scaffold to provide a basic structure with an AppBar and a centered button.
+When the button is pressed, it calls DatabaseHelper.createDatabaseAndTable to create the database and table.
+
+
+#### How to use CRUD operation [create, Read, Update, Delete] :
+
+## Insert data
+
+```dart
+await DatabaseHelper.insert(
+  dbName: 'example.db',
+  tableName: 'users',
+  values: {
+    'name': 'John Doe',
+    'age': 30,
+  },
+);
+
+```
+
+## Query data
+
+```dart
+List<Map<String, dynamic>> users = await DatabaseHelper.queryAll(
+  dbName: 'example.db',
+  tableName: 'users',
+);
+
+```
+
+## Update data
+
+```dart
+await DatabaseHelper.update(
+  dbName: 'example.db',
+  tableName: 'users',
+  values: {
+    'age': 31,
+  },
+  whereClause: 'name = ?',
+  whereArgs: ['John Doe'],
+);
+
+```
+
+## Delete data
+
+```dart
+await DatabaseHelper.delete(
+  dbName: 'example.db',
+  tableName: 'users',
+  whereClause: 'name = ?',
+  whereArgs: ['John Doe'],
+);
+
+```
+
