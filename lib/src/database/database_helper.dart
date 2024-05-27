@@ -21,8 +21,8 @@ class DatabaseHelper {
     required String tableName,
     required Map<String, String> columns,
   }) async {
-    dbName = dbName;
-    tableName = tableName;
+    dbName = dbName ?? 'default.db';
+    tableName = tableName ?? 'default_table';
     final isCreated = await isDatabaseCreated(dbName, tableName);
     if (isCreated) {
       final databasesPath = await getDatabasesPath();
