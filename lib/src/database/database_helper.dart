@@ -7,28 +7,32 @@ import 'database_creator.dart';
 import 'table_creator.dart';
 
 class DatabaseHelper {
-  static const String _dbName = 'ad.db';
-  static const String _tableName = 'u_table';
+  static late final String dbName;
+  static late final String tableName;
 
-  static Future<bool> isDatabaseCreated() async {
-    final database = await DatabaseCreator.createDatabase(dbName: _dbName);
+  static Future<bool> isDatabaseCreated(dbName, tableName) async {
+    final database = await DatabaseCreator.createDatabase(dbName: dbName);
     return database.isOpen;
   }
 
   static Future<void> createDatabaseAndTable({
     required BuildContext context,
+    required String dbName,
+    required String tableName,
     required Map<String, String> columns,
   }) async {
-    final isCreated = await isDatabaseCreated();
+    dbName = dbName;
+    tableName = tableName;
+    final isCreated = await isDatabaseCreated(dbName, tableName);
     if (isCreated) {
       final databasesPath = await getDatabasesPath();
-      final databasePath = join(databasesPath, _dbName);
+      final databasePath = join(databasesPath, dbName);
       print('Database created at: $databasePath');
 
-      final database = await DatabaseCreator.createDatabase(dbName: _dbName);
+      final database = await DatabaseCreator.createDatabase(dbName: dbName);
       await TableCreator.createTable(
         db: database,
-        tableName: _tableName,
+        tableName: tableName,
         columns: columns,
       );
 
@@ -57,13 +61,13 @@ class DatabaseHelper {
   static Future<int> insert({
     required Map<String, dynamic> values,
   }) async {
-    final database = await DatabaseCreator.createDatabase(dbName: _dbName);
-    return await database.insert(_tableName, values);
+    final database = await DatabaseCreator.createDatabase(dbName: dbName);
+    return await database.insert(tableName, values);
   }
 
   static Future<List<Map<String, dynamic>>> queryAll() async {
-    final database = await DatabaseCreator.createDatabase(dbName: _dbName);
-    return await database.query(_tableName);
+    final database = await DatabaseCreator.createDatabase(dbName: dbName);
+    return await database.query(tableName);
   }
 
   static Future<int> update({
@@ -71,8 +75,8 @@ class DatabaseHelper {
     required String whereClause,
     required List<dynamic> whereArgs,
   }) async {
-    final database = await DatabaseCreator.createDatabase(dbName: _dbName);
-    return await database.update(_tableName, values,
+    final database = await DatabaseCreator.createDatabase(dbName: dbName);
+    return await database.update(tableName, values,
         where: whereClause, whereArgs: whereArgs);
   }
 
@@ -80,8 +84,8 @@ class DatabaseHelper {
     required String whereClause,
     required List<dynamic> whereArgs,
   }) async {
-    final database = await DatabaseCreator.createDatabase(dbName: _dbName);
-    return await database.delete(_tableName,
+    final database = await DatabaseCreator.createDatabase(dbName: dbName);
+    return await database.delete(tableName,
         where: whereClause, whereArgs: whereArgs);
   }
 }
